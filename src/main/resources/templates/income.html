@@ -67,7 +67,7 @@
 </form>
 
 <form action="/addIncome" method="POST">
-    <h3>수입 추가</h3>
+    <h3>고정/변동 수입 추가</h3>
     <input name="name" placeholder="수입 이름">
     <input name="bank" placeholder="은행 이름">
     <input name="account_number" placeholder="계좌번호">
@@ -76,6 +76,10 @@
     <p>고정수입 여부</p>
     <input type="checkbox" name="is_fixed" value="true">
     <button type="submit">추가</button>
+</form>
+
+<form action="/toIncomeStatus" method="GET">
+    <button type="submit">수입 현황</button>
 </form>
 
 </body>

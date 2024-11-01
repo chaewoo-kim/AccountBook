@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>메인 페이지</title>
+    <link href="/main.css" rel="stylesheet">
+</head>
+<body>
+
+<div th:replace="~{nav.html::navbar}"></div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+<h2>수입 내역</h2>
+
+<form action="/incomeStatusList" method="GET">
+    <div>
+        <h3>수입 목록</h3>
+        <table>
+            <thead>
+            <tr>
+                <th>수입원 이름</th>
+                <th>은행</th>
+                <th>계좌 번호</th>
+                <th>금액</th>
+                <th>월 사용 상한 금액</th>
+                <th>삭제 여부</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="i : ${incomeList}">
+                <td th:text="${i.name}"></td>
+                <td th:text="${i.amount}"></td>
+                <td th:text="${i.date}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</form>
+
+
+<form action="/addIncomeStatus" method="POST">
+    <h3>수입 추가</h3>
+    <label for="datePicker"></label>
+    <input name="date" type="date" id="datePicker">
+    <input name="name" placeholder="수입 이름">
+    <input name="amount" placeholder="금액">
+    <button type="submit">추가</button>
+</form>
+
+
+
+
+<script>
+    // flatpickr 설정
+    flatpickr("#datePicker", {
+        dateFormat: "Y-m-d",
+        defaultDate: "today",
+        allowInput: true,
+        onReady: function(selectedDates, dateStr, instance) {
+            instance.input.addEventListener("click", function () {
+                instance.open();
+            })
+        }
+    });
+</script>
+
+
+</body>
+</html>
