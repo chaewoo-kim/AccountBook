@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -17,6 +18,7 @@ public class IncomeController {
 
     private final IncomeRepository incomeRepository;
     private final UserinfoRepository userinfoRepository;
+    private final IncomeStatusRepository incomeStatusRepository;
     public final String user_id = "ck12369"; //나중에 로그인해서 user_id의 변수화 가능해지면 수정할 부분
 
 
@@ -78,5 +80,42 @@ public class IncomeController {
         }
 
         return "redirect:income";
+    }
+
+    @GetMapping("/toIncomeStatus")
+    String toIncomeStatus() {
+        return "incomeStatus.html";
+    }
+
+    @PostMapping("/addIncomeStatus")
+    String addIncomeStatus(@RequestParam Map<String, String> formData, Model model) {
+
+        IncomeStatus incomeStatus = new IncomeStatus();
+        LocalDate date = LocalDate.parse(formData.get("date"));
+
+        Optional<Userinfo> userinfo = userinfoRepository.findByUserId(user_id);
+        if (!userinfo.isPresent()){
+
+            return "redirect:/main";
+
+        }
+
+        Userinfo add_userinfo = userinfo.get();
+
+        incomeStatus.setUserId(add_userinfo);
+        incomeStatus.setDate(date);
+        incomeStatus.setName(formData.get("name"));
+        incomeStatus.setAmount(Integer.parseInt(formData.get("amount")));
+
+        incomeStatusRepository.save(incomeStatus);
+
+        return "redirect:/toIncomeStatus";
+    }
+
+    @GetMapping("/incomeStatusList")
+    void incomeStatusList(Model model) {
+        //데이터 incomeStatus로 보내서 수입 내역 확인할 수 있도록 추가 필요
+        Userinfo userinfo = new Userinfo();
+
     }
 }
