@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>메인 페이지</title>
+    <link href="/main.css" rel="stylesheet">
+</head>
+<body>
+
+<div th:replace="~{nav.html::navbar}"></div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+<h2>지출</h2>
+
+<form action="/deleteIncome" method="POST">
+    <h3>오늘의 지출</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>지출 이름</th>
+            <th>카테고리</th>
+            <th>금액</th>
+            <th>메모</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="i : ${todayExpenses}">
+            <td th:text="${i.name}"></td>
+            <td th:text="${i.category}"></td>
+            <td th:text="${i.amount}"></td>
+            <td th:text="${i.memo}"></td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+</form>
+
+<form action="/addExpense" method="POST">
+    <div>
+        <h3>지출 추가</h3>
+
+        <label for="datePicker"></label>
+        <input name="date" type="date" id="datePicker">
+
+        <input name="name" placeholder="지출 이름">
+        <input name="category" placeholder="카테고리">
+        <input name="amount" placeholder="금액">
+        <input name="memo" placeholder="추가 입력 사항">
+        <button type="submit">추가</button>
+    </div>
+</form>
+
+
+
+
+
+<script>
+    // flatpickr 설정
+    flatpickr("#datePicker", {
+        dateFormat: "Y-m-d",
+        defaultDate: "today",
+        allowInput: true,
+        onReady: function(selectedDates, dateStr, instance) {
+            instance.input.addEventListener("click", function () {
+                instance.open();
+            })
+        }
+    });
+</script>
+
+
+</script>
+
+
+</body>
+</html>

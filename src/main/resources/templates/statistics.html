@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>메인 페이지</title>
+    <link href="/main.css" rel="stylesheet">
+</head>
+<body>
+
+<div th:replace="~{nav.html::navbar}"></div>
+
+<h2>통계</h2>
+
+<!--달력 넣어서 일자 별로 확인 가능하게-->
+<!--삭제 기능 추가-->
+<h3>일 사용 현황</h3>
+<table>
+    <thead>
+        <tr>
+            <th>상한 금액</th>
+            <th>사용 금액</th>
+            <th>잔여 금액</th>
+            <th>초과 금액</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td th:each="expense : ${day}" th:text="${expense}"></td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+<h3>월 사용 현황</h3>
+<table>
+    <thead>
+    <tr>
+        <th>상한 금액</th>
+        <th>사용 금액</th>
+        <th>잔여 금액</th>
+        <th>초과 금액</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td th:each="expense : ${month}" th:text="${expense}"></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

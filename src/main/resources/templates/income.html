@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>메인 페이지</title>
+    <link href="/main.css" rel="stylesheet">
+</head>
+<body>
+
+<div th:replace="~{nav.html::navbar}"></div>
+
+<h2>수입</h2>
+
+<!--수입원이 아니라 수입 자체도 추가해야 함. 용돈으로 얼마 받았다던지, 당근으로 얼마의 수익을 올렸다던지 등-->
+<form action="/deleteIncome" method="POST">
+    <div>
+        <h3>고정 수입</h3>
+        <button type="submit">삭제</button>
+        <table>
+            <thead>
+                <tr>
+                    <th>수입원 이름</th>
+                    <th>은행</th>
+                    <th>계좌 번호</th>
+                    <th>금액</th>
+                    <th>월 사용 상한 금액</th>
+                    <th>삭제 여부</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="i : ${incomes}" th:if="${i.is_fixed}">
+                    <td th:text="${i.name}"></td>
+                    <td th:text="${i.bank}"></td>
+                    <td th:text="${i.account_number}"></td>
+                    <td th:text="${i.amount}"></td>
+                    <td th:text="${i.monthly_spending_upper_limit}"></td>
+                    <td><input type="checkbox" name="selected_fixed[]" value="true" th:value="${i.id}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h3>변동 수입</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>수입원 이름</th>
+            <th>은행</th>
+            <th>계좌 번호</th>
+            <th>금액</th>
+            <th>월 사용 상한 금액</th>
+            <th>삭제 여부</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="i : ${incomes}" th:if="${!i.is_fixed}">
+            <td th:text="${i.name}"></td>
+            <td th:text="${i.bank}"></td>
+            <td th:text="${i.account_number}"></td>
+            <td th:text="${i.amount}"></td>
+            <td th:text="${i.monthly_spending_upper_limit}"></td>
+            <td><input type="checkbox" name="selected_unfixed[]" value="true" th:value="${i.id}"></td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+</form>
+
+<form action="/addIncome" method="POST">
+    <h3>수입 추가</h3>
+    <input name="name" placeholder="수입 이름">
+    <input name="bank" placeholder="은행 이름">
+    <input name="account_number" placeholder="계좌번호">
+    <input name="amount" placeholder="금액">
+    <input name="monthly_spending_upper_limit" placeholder="월 사용 상한 금액">
+    <p>고정수입 여부</p>
+    <input type="checkbox" name="is_fixed" value="true">
+    <button type="submit">추가</button>
+</form>
+
+</body>
+</html>
