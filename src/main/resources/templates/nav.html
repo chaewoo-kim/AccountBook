@@ -1,7 +1,7 @@
 <div class="nav" th:fragment="navbar">
-    <a class="logo">SQL 가계부</a>
-    <a href="/main">main</a>
-    <a href="/income">income</a>
-    <a href="/expense">expense</a>
-    <a href="/statistics">statistics</a>
+    <a class="logo" href="/main">SQL 가계부</a>
+    <a href="/income">수입</a>
+    <a href="/expense">지출</a>
+    <a href="/statistics">분석</a>
+    <div th:replace="~{search.html::searchbar}"></div>
 </div>

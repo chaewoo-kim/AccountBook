@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>메인 페이지</title>
+    <link href="/main.css" rel="stylesheet">
+</head>
+<body>
+
+<div th:replace="~{nav.html::navbar}"></div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+<h2>검색 결과</h2>
+
+<div th:switch="${type}">
+    <div th:case="'수입'">
+        <h3>수입</h3>
+        <h5 th:text="${input}"></h5>
+        <table>
+            <thead>
+            <tr>
+                <th>이름</th>
+                <th>금액</th>
+                <th>날짜</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="i : ${incomeStatusList}">
+                <td th:text="${i.name}"></td>
+                <td th:text="${i.amount}"></td>
+                <td th:text="${i.date}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:case="'지출'">
+        <h3>지출</h3>
+        <h5 th:text="${input}"></h5>
+        <table>
+            <thead>
+            <tr>
+                <th>이름</th>
+                <th>금액</th>
+                <th>날짜</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="i : ${expenseList}">
+                <td th:text="${i.name}"></td>
+                <td th:text="${i.amount}"></td>
+                <td th:text="${i.date}"></td>
+            </tr>
+            </tbody>
+            </table>
+    </div>
+</div>
+
+
+
+</body>
+</html>

@@ -16,7 +16,7 @@ import java.util.Optional;
 public class StatisticsController {
 
     private final StatisticsRepository statisticsRepository;
-    private final ExpenseRepositroy expenseRepositroy;
+    private final ExpenseRepository expenseRepository;
     private final String user_id = "ck12369";
 
     @GetMapping("/statistics")
@@ -45,8 +45,8 @@ public class StatisticsController {
 
         Optional<Statistics> limits = statisticsRepository.findByUserId_UserId(user_id);
         if (limits.isPresent()) {
-            List<Expense> todayExpense = expenseRepositroy.findAllByUserId_UserIdAndDate(user_id, LocalDate.now());
-            List<Expense> thisMonthExpense = expenseRepositroy.findAllByUserIdAndDateBetween(userId, startDate, endDate);
+            List<Expense> todayExpense = expenseRepository.findAllByUserId_UserIdAndDate(user_id, LocalDate.now());
+            List<Expense> thisMonthExpense = expenseRepository.findAllByUserIdAndDateBetween(userId, startDate, endDate);
 
             for (int i=0; i < todayExpense.size(); i++) {
                 Expense expense = todayExpense.get(i);
@@ -93,5 +93,7 @@ public class StatisticsController {
 
         return "statistics.html";
     }
+
+
 
 }

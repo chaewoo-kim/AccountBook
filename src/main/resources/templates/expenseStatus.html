@@ -12,24 +12,28 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
-<h2>수입 내역</h2>
+<h2>지출 내역</h2>
 
-<form action="deleteIncomeStatus" method="POST">
+<form action="deleteExpenseStatus" method="POST">
     <div>
-        <h3>수입 목록</h3>
+        <h3>지출 목록</h3>
         <table>
             <thead>
             <tr>
-                <th>수입원 이름</th>
+                <th>이름</th>
+                <th>카테고리</th>
                 <th>금액</th>
+                <th>메모</th>
                 <th>날짜</th>
                 <th>삭제 여부</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="i : ${incomeList}">
+            <tr th:each="i : ${expenseList}">
                 <td th:text="${i.name}"></td>
+                <td th:text="${i.category}"></td>
                 <td th:text="${i.amount}"></td>
+                <td th:text="${i.memo}"></td>
                 <td th:text="${i.date}"></td>
                 <td><input type="checkbox" name="selected_unfixed[]" value="true" th:value="${i.id}"></td>
             </tr>
@@ -40,13 +44,17 @@
 </form>
 
 
-<form action="/addIncomeStatus" method="POST">
-    <h3>수입 추가</h3>
-    <label for="datePicker"></label>
-    <input name="date" type="date" id="datePicker">
-    <input name="name" placeholder="수입 이름">
-    <input name="amount" placeholder="금액">
-    <button type="submit">추가</button>
+<form action="/addExpenseStatus" method="POST">
+    <div>
+        <h3>지출 추가</h3>
+        <label for="datePicker"></label>
+        <input name="date" type="date" id="datePicker">
+        <input name="name" placeholder="지출 이름">
+        <input name="category" placeholder="카테고리">
+        <input name="amount" placeholder="금액">
+        <input name="memo" placeholder="추가 입력 사항">
+        <button type="submit">추가</button>
+    </div>
 </form>
 
 
