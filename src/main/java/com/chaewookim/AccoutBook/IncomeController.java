@@ -82,10 +82,6 @@ public class IncomeController {
         return "redirect:income";
     }
 
-    @GetMapping("/toIncomeStatus")
-    String toIncomeStatus() {
-        return "incomeStatus.html";
-    }
 
     @PostMapping("/addIncomeStatus")
     String addIncomeStatus(@RequestParam Map<String, String> formData, Model model) {
@@ -109,13 +105,38 @@ public class IncomeController {
 
         incomeStatusRepository.save(incomeStatus);
 
-        return "redirect:/toIncomeStatus";
+        return "incomeStatus.html";
     }
 
-    @GetMapping("/incomeStatusList")
-    void incomeStatusList(Model model) {
+    @GetMapping("/incomeStatus")
+    String incomeStatusList(Model model) {
         //데이터 incomeStatus로 보내서 수입 내역 확인할 수 있도록 추가 필요
-        Userinfo userinfo = new Userinfo();
 
+        List<IncomeStatus> incomeStatuses = incomeStatusRepository.findAllByUserId_UserId(user_id);
+        model.addAttribute("incomeList", incomeStatuses);
+        System.out.println(incomeStatuses);
+
+        return "incomeStatus";
+
+    }
+
+    @PostMapping("/deleteIncomeStatus")
+    String deleteIncomeStatus(@RequestParam(value = "selected_unfixed[]", required = false) List<Long> unfixed, @RequestParam(value = "selected_fixed[]", required = false) List<Long> fixed) {
+
+        if (unfixed != null) {
+            for (Long id : unfixed) {
+                System.out.println(id);
+                incomeStatusRepository.deleteById(id);
+            }
+        }
+
+        if (fixed != null) {
+            for (Long id : fixed) {
+                System.out.println(id);
+                incomeStatusRepository.deleteById(id);
+            }
+        }
+
+        return "redirect:/incomeStatus";
     }
 }

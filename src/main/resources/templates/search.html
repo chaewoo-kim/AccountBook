@@ -1,0 +1,10 @@
+<div class="searchbar" th:fragment="searchbar">
+    <form action="/search" method="GET">
+        <input type="text" name="input" placeholder='타입="지출or수입", 날짜="yyyy-mm-dd", 금액>"특정금액", 이름="검색할 이름"'/>
+    </form>
+</div>
+
+<!--
+전달할 내용 : 날짜, 타입(수입, 지출), 금액(부등호), 이름, 메모
+타입은 필수!!
+-->
